@@ -1,6 +1,6 @@
 export const portfolioData = {
     name: "Naji Ullah",
-    title: "Associate Software Engineer",
+    title: "Software Engineer",
     tagline: "Full Stack Engineer (React, Django/FastAPI, Firebase) with 1.5 years of experience",
     about: `I build scalable SaaS, BaaS, and CRM products with modern frontend and backend architecture.
 My core stack includes React/Next.js, Python (Django/DRF/FastAPI), Firebase, and PostgreSQL.

@@ -51,6 +51,11 @@ function AnimatedSphere({ position, material, offset = 0 }: {
 }
 export function ZoneObjects() {
     return (<group>
+  <ZoneAirWall center={[-50, 0, -40]} color="#3b82f6" radius={15} height={8.2}/>
+  <ZoneAirWall center={[50, 0, -40]} color="#8b5cf6" radius={15} height={8.2}/>
+  <ZoneAirWall center={[-50, 0, 40]} color="#06b6d4" radius={15} height={8.2}/>
+  <ZoneAirWall center={[50, 0, 40]} color="#10b981" radius={15} height={8.2}/>
+
       
       <AnimatedCube position={[-52, 4, -42]} material={cubeMatBlue} offset={0}/>
       <AnimatedSphere position={[-46, 4.5, -37]} material={cubeMatBlue} offset={1.5}/>
@@ -75,6 +80,72 @@ export function ZoneObjects() {
 
       
       <CenterRings />
+    </group>);
+}
+function ZoneAirWall({
+    center,
+    color,
+    radius,
+    height,
+}: {
+    center: [number, number, number];
+    color: string;
+    radius: number;
+    height: number;
+}) {
+    const shellRef = useRef<THREE.Mesh>(null);
+    const wireRef = useRef<THREE.Mesh>(null);
+    const sweepA = useRef<THREE.Mesh>(null);
+    const sweepB = useRef<THREE.Mesh>(null);
+    const phase = useMemo(() => Math.random() * Math.PI * 2, []);
+    useFrame(({ clock }, delta) => {
+        const t = clock.elapsedTime + phase;
+        const pulse = (Math.sin(t * 2.1) + 1) * 0.5;
+        if (shellRef.current) {
+            const mat = shellRef.current.material as THREE.MeshBasicMaterial;
+            mat.opacity = 0.08 + pulse * 0.08;
+            shellRef.current.scale.set(1 + pulse * 0.015, 1, 1 + pulse * 0.015);
+        }
+        if (wireRef.current) {
+            const mat = wireRef.current.material as THREE.MeshBasicMaterial;
+            mat.opacity = 0.08 + (1 - pulse) * 0.1;
+            wireRef.current.rotation.y += delta * 0.18;
+        }
+        const sweep1 = (((t * 0.75) % 1) - 0.5) * height;
+        const sweep2 = ((((t * 0.75) + 0.5) % 1) - 0.5) * height;
+        if (sweepA.current) {
+            const mat = sweepA.current.material as THREE.MeshBasicMaterial;
+            sweepA.current.position.y = sweep1 + height * 0.5;
+            mat.opacity = 0.2 + pulse * 0.2;
+            sweepA.current.scale.setScalar(1 + pulse * 0.03);
+        }
+        if (sweepB.current) {
+            const mat = sweepB.current.material as THREE.MeshBasicMaterial;
+            sweepB.current.position.y = sweep2 + height * 0.5;
+            mat.opacity = 0.16 + (1 - pulse) * 0.16;
+            sweepB.current.scale.setScalar(1 + (1 - pulse) * 0.04);
+        }
+    });
+    return (<group position={center}>
+      <mesh ref={shellRef} position={[0, height * 0.5, 0]}>
+        <cylinderGeometry args={[radius, radius, height, 64, 1, true]}/>
+        <meshBasicMaterial color={color} transparent opacity={0.12} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending}/>
+      </mesh>
+
+      <mesh ref={wireRef} position={[0, height * 0.5, 0]}>
+        <cylinderGeometry args={[radius, radius, height, 40, 1, true]}/>
+        <meshBasicMaterial color={color} transparent opacity={0.14} side={THREE.DoubleSide} wireframe depthWrite={false} blending={THREE.AdditiveBlending}/>
+      </mesh>
+
+      <mesh ref={sweepA} position={[0, height * 0.25, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[radius, 0.09, 8, 96]}/>
+        <meshBasicMaterial color={color} transparent opacity={0.26} depthWrite={false} blending={THREE.AdditiveBlending}/>
+      </mesh>
+
+      <mesh ref={sweepB} position={[0, height * 0.75, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[radius, 0.08, 8, 96]}/>
+        <meshBasicMaterial color={color} transparent opacity={0.2} depthWrite={false} blending={THREE.AdditiveBlending}/>
+      </mesh>
     </group>);
 }
 function ZoneLabel({ position, color, title, subtitle, }: {
