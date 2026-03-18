@@ -176,7 +176,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
   type Phase = "static" | "boot" | "glitch" | "reveal" | "ready" | "entering" | "leaving";
     const [phase, setPhase] = useState<Phase>("static");
     const [bootLines, setBootLines] = useState<string[]>([]);
-    const [titleLen, setTitleLen] = useState(0);
+    const [titleLen, setTitleLen] = useState(TITLE.length);
     const [glitchActive, setGlitchActive] = useState(false);
     const [cursorVisible, setCursorVisible] = useState(true);
     const [staticOpacity, setStaticOpacity] = useState(1);
