@@ -101,8 +101,8 @@ At Devflovv, I contribute across frontend, backend, automation, and cloud deploy
     contact: {
         email: "najiu1836@gmail.com",
         phone: "+92 342 497 6549",
-        linkedin: "linkedin.com/in/najiullah",
-        github: "github.com/najiullah",
+        linkedin: "https://www.linkedin.com/in/naji-ullah-53222624b/",
+        github: "https://github.com/Naji-Ullah",
     },
     experience: [
         {

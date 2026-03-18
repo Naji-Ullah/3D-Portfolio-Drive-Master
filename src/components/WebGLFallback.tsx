@@ -125,8 +125,8 @@ export function WebGLFallback() {
           {[
             { icon: "✉️", label: "Email", value: portfolioData.contact.email },
             { icon: "📞", label: "Phone", value: portfolioData.contact.phone },
-            { icon: "🐙", label: "GitHub", value: portfolioData.contact.github },
-            { icon: "💼", label: "LinkedIn", value: portfolioData.contact.linkedin },
+            { icon: "🐙", label: "GitHub", value: portfolioData.contact.github, href: portfolioData.contact.github },
+            { icon: "💼", label: "LinkedIn", value: portfolioData.contact.linkedin, href: portfolioData.contact.linkedin },
         ].map((c, i) => (<div key={i} style={{
                 display: "flex", gap: "10px", alignItems: "center",
                 padding: "8px 0",
@@ -135,7 +135,14 @@ export function WebGLFallback() {
               <span>{c.icon}</span>
               <div>
                 <div style={{ color: "#6ee7b7", fontSize: "0.7rem", textTransform: "uppercase", fontWeight: 700 }}>{c.label}</div>
-                <div style={{ color: "#94a3b8", fontSize: "0.82rem" }}>{c.value}</div>
+                {c.href ? (<a href={c.href} target="_blank" rel="noreferrer noopener" style={{
+                color: "#94a3b8",
+                fontSize: "0.82rem",
+                textDecoration: "underline",
+                textUnderlineOffset: "2px",
+            }}>
+                    {c.value}
+                  </a>) : (<div style={{ color: "#94a3b8", fontSize: "0.82rem" }}>{c.value}</div>)}
               </div>
             </div>))}
         </div>

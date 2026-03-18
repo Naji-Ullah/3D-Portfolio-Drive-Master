@@ -277,8 +277,8 @@ function ContactPanel() {
     const items = [
         { icon: "✉️", label: "Email", value: portfolioData.contact.email, color: "#3b82f6" },
         { icon: "📞", label: "Phone", value: portfolioData.contact.phone, color: "#10b981" },
-        { icon: "🐙", label: "GitHub", value: portfolioData.contact.github, color: "#8b5cf6" },
-        { icon: "💼", label: "LinkedIn", value: portfolioData.contact.linkedin, color: "#06b6d4" },
+    { icon: "🐙", label: "GitHub", value: portfolioData.contact.github, color: "#8b5cf6", href: portfolioData.contact.github },
+    { icon: "💼", label: "LinkedIn", value: portfolioData.contact.linkedin, color: "#06b6d4", href: portfolioData.contact.linkedin },
     ];
     return (<div>
       <h2 style={{ margin: "0 0 0.5rem", fontSize: "1rem", fontWeight: 700, color: "#f0f9ff" }}>
@@ -300,9 +300,22 @@ function ContactPanel() {
             <div style={{ fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.08em", color: item.color, fontWeight: 700 }}>
               {item.label}
             </div>
-            <div style={{ fontSize: "0.78rem", color: "#cbd5e1", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-              {item.value}
-            </div>
+            {item.href ? (<a href={item.href} target="_blank" rel="noreferrer noopener" style={{
+                display: "inline-block",
+                fontSize: "0.78rem",
+                color: "#cbd5e1",
+                fontWeight: 600,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                textDecoration: "underline",
+                textDecorationColor: `${item.color}AA`,
+                textUnderlineOffset: "2px",
+            }}>
+                {item.value}
+              </a>) : (<div style={{ fontSize: "0.78rem", color: "#cbd5e1", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {item.value}
+              </div>)}
           </div>
         </div>))}
     </div>);
