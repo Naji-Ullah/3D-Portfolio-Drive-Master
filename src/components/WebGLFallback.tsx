@@ -136,8 +136,14 @@ export function WebGLFallback() {
               <div>
                 <div style={{ color: "#6ee7b7", fontSize: "0.7rem", textTransform: "uppercase", fontWeight: 700 }}>{c.label}</div>
                 {c.href ? (<a href={c.href} target="_blank" rel="noreferrer noopener" style={{
+                display: "block",
+                maxWidth: "100%",
                 color: "#94a3b8",
                 fontSize: "0.82rem",
+                overflowWrap: "anywhere",
+                wordBreak: "break-word",
+                whiteSpace: "normal",
+                lineHeight: 1.35,
                 textDecoration: "underline",
                 textUnderlineOffset: "2px",
             }}>

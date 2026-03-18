@@ -301,13 +301,15 @@ function ContactPanel() {
               {item.label}
             </div>
             {item.href ? (<a href={item.href} target="_blank" rel="noreferrer noopener" style={{
-                display: "inline-block",
+              display: "block",
                 fontSize: "0.78rem",
                 color: "#cbd5e1",
                 fontWeight: 600,
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
+              maxWidth: "100%",
+              overflowWrap: "anywhere",
+              wordBreak: "break-word",
+              whiteSpace: "normal",
+              lineHeight: 1.35,
                 textDecoration: "underline",
                 textDecorationColor: `${item.color}AA`,
                 textUnderlineOffset: "2px",
